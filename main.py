@@ -39,9 +39,10 @@ async def serve_index():
 
 @app.get("/api/health")
 async def health():
+    is_postgres = "postgresql" in str(engine.url)
     return {
         "status": "ok",
-        "database": get_active_db_type(),
+        "database": "postgresql" if is_postgres else "sqlite",
         "version": settings.VERSION
     }
 
